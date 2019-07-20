@@ -57,7 +57,7 @@ RUN virtualenv -p /usr/bin/python2.7 --system-site-packages /vpy && \
     chown -R pillow:pillow /vpy3
 
 ADD depends /depends
-RUN cd /depends && ./install_openjpeg.sh && ./install_imagequant.sh && ./install_raqm.sh
+RUN cd /depends && ./install_openjpeg.sh && ./install_imagequant.sh && archive=raqm-0.5.0 && ./download-and-extract.sh $archive https://raw.githubusercontent.com/python-pillow/pillow-depends/master/$archive.tar.gz && cd raqm-0.5.0 && ./configure --prefix=/usr && make -j4 && sudo make -j4 install && cd ..
 
 USER pillow
 ENTRYPOINT ["linux32"]
