@@ -49,7 +49,7 @@ RUN virtualenv -p /usr/bin/python3.7 --system-site-packages /vpy3 && \
     /vpy3/bin/pip install --upgrade pip && \
     /vpy3/bin/pip install cffi olefile pytest pytest-cov && \
     /vpy3/bin/pip install numpy --only-binary=:all: || true && \
-    /vpy3/bin/pip install pillow && \
+    /vpy3/bin/pip install pillow --only-binary=:all: && \
     chown -R pillow:pillow /vpy3
 
 ADD depends /depends
