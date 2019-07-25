@@ -3,10 +3,10 @@ FROM ubuntu:18.04 as ubuntu_base
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y \
     install sudo xvfb \
     git wget python-virtualenv python-numpy python-scipy netpbm \
-    python-pyqt5 ghostscript libffi-dev libjpeg-turbo-progs \
+    python-pyqt5 ghostscript libffi-dev libjpeg-turbo8-dev \
     python-dev python-setuptools \
     python3-dev cmake  \
-    libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
+    libtiff5-dev libopenjp2-7-dev zlib1g-dev \
     libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev \
     python-tk python3-tk \
     libharfbuzz-dev libfribidi-dev && apt-get clean
