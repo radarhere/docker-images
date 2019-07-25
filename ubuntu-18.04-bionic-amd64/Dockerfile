@@ -25,9 +25,7 @@ RUN cd /depends
 USER pillow
 CMD ["depends/test.sh"]
 
-RUN virtualenv -p /usr/bin/python3.6 -c "from PIL import features, __version__; \
-        print(__version__); \
-        print(features.check_feature('libjpeg_turbo')); \
-        print(features.check('jpg')); \
-        print(features.get_supported_features())" &&\
+RUN ls /vpy3/bin
+
+RUN /vpy3/bin/python3 /depends/jpeg.py &&\
     dpkg-query -s 'libjpeg-turbo8'
