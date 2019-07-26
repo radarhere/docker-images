@@ -8,7 +8,7 @@ matrix:
   fast_finish: true
   include:
     - name: "ubuntu-18.04-bionic-amd64 latest"
-      env: DOCKER="ubuntu-18.04-bionic-amd64" LATEST="true"
+      env: DOCKER="ubuntu-18.04-bionic-amd64"
 install:
 - sudo apt-get update && sudo apt-get install -qyy debootstrap
 - sudo chown -R 1000 $TRAVIS_BUILD_DIR

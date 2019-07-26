@@ -10,7 +10,6 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 
 build:
 	cp test.sh ../Pillow/depends
-	cp jpeg.py ../Pillow/depends
 	cp -r ../Pillow/depends .
 	docker build -t $(IMAGENAME):$(BRANCH) .
 

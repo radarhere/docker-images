@@ -27,5 +27,4 @@ CMD ["depends/test.sh"]
 
 RUN ls /vpy3/bin
 
-RUN /vpy3/bin/python3 /depends/jpeg.py &&\
-    dpkg-query -s 'libjpeg-turbo8'
+RUN dpkg-query -s 'libjpeg-turbo8'
