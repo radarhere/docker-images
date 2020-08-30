@@ -48,7 +48,8 @@ RUN apk add --update-cache \
         leptonica-dev \
         tesseract-ocr \
         tesseract-ocr-dev \
-        openssh-server
+        openssh-server \
+        py3-pip
 
 ADD depends /depends
 RUN cd /depends && ./install_webp.sh && ./install_imagequant.sh && ./install_raqm.sh
