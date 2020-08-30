@@ -57,6 +57,12 @@ RUN /usr/sbin/adduser -D pillow && \
     /vpy3/bin/pip install pipenv && \
     chown -R pillow:pillow /vpy3
 
+RUN echo "torch"
+RUN find . -iname pipenv
+RUN echo "torch1"
+RUN pipenv install
+RUN echo "torch2"
+
 USER pillow
 CMD ["depends/test.sh"]
 

@@ -1,0 +1,45 @@
+[source]]
+url = "https://repository.walmart.com/repository/pypi-proxy/simple/"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "==3.0.5"
+djangorestframework-csv = "*"
+djangorestframework-recursive = "*"
+djangorestframework-jwt = "*"
+djangorestframework = ">=3.6"
+django-rest-swagger = ">=2.1"
+django-filter = "*"
+django-extensions = "*"
+python-memcached = "*"
+requests = "*"
+psycopg2-binary = "*"
+django-treebeard = "*"
+django-grappelli =  "*"
+celery = "*"
+django-debug-toolbar = "*"
+drf-nested-routers = "*"
+pillow = "*"
+django-storages = {extras = ["azure"], version = "*"}
+easy-thumbnails = "*"
+cx-oracle = "*"
+ipython = "*"
+uwsgi = "*"
+django-celery-results = "*"
+django-mock-queries = "*"
+cython = "*"
+tesserocr = "*"
+pytesseract = "*"
+opencv-contrib-python = "*"
+
+[dev-packages]
+pylint = "*"
+flake8 = "*"
+black = "*"
+
+[requires]
+python_version = "3.8.3"
+
+[pipenv]
+allow_prereleases = true
