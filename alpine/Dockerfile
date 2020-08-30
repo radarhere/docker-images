@@ -7,27 +7,48 @@
 
 FROM alpine
 
-RUN apk --no-cache add python3 \
-                       build-base \
-                       python3-dev \
-                       # wget dependency
-                       openssl \
-                       # dev dependencies
-                       git \
-                       bash \
-                       sudo \
-                       py3-pip \
-                       # Pillow dependencies
-                       jpeg-dev \
-                       zlib-dev \
-                       freetype-dev \
-                       lcms2-dev \
-                       openjpeg-dev \
-                       tiff-dev \
-                       tk-dev \
-                       tcl-dev \
-                       harfbuzz-dev \
-                       fribidi-dev
+RUN apk add --update-cache \
+        pcre-dev \
+        libc-dev \
+        linux-headers \
+        python3-dev \
+        nginx \
+        curl \
+        bash \
+        gcc \
+        g++ \
+        uwsgi-python3 \
+        # psycopg
+        postgresql-dev \
+        musl-dev \
+        libffi-dev \
+        freetype-dev \
+        lcms2-dev \
+        # PILLOW 
+        jpeg-dev \
+        zlib-dev \
+        # pylibmc
+        libmemcached-dev \
+        openjpeg-dev \
+        jpeg \
+        libjpeg \
+        openjpeg \
+        tiff-dev \
+        tk-dev \
+        tcl-dev \
+        harfbuzz-dev \
+        fribidi-dev \
+        # opencv
+        make \
+        cmake \
+        clang \ 
+        clang-dev \
+        ninja \
+        # tesseract
+        leptonica-dev \
+        tesseract-ocr \
+        tesseract-ocr-dev \
+        openssh-server
 
 ADD depends /depends
 RUN cd /depends && ./install_webp.sh && ./install_imagequant.sh && ./install_raqm.sh
