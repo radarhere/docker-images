@@ -51,16 +51,17 @@ RUN apk add --update-cache \
         openssh-server \
         py3-pip
 
+ADD depends /depends
+
 RUN /usr/sbin/adduser -D pillow && \
     pip3 install -I virtualenv && virtualenv /vpy3 && \
     /vpy3/bin/pip install --upgrade pip && \
     /vpy3/bin/pip install pipenv && \
+    /vpy3/bin/pip install pytest pytest-cov && \
     chown -R pillow:pillow /vpy3
 
 RUN echo "torch"
-RUN find . -iname pipenv
-RUN echo "torch1"
-RUN pipenv install
+RUN /vpy3/bin/pipenv install
 RUN echo "torch2"
 
 USER pillow
