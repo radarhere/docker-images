@@ -5,7 +5,7 @@
 # Freetype has different metrics so tests are failing.
 # sudo and bash are required for the webp build script.
 
-FROM alpine
+FROM python:3.8.3-alpine3.11
 
 RUN apk add --update-cache \
         pcre-dev \
@@ -24,7 +24,7 @@ RUN apk add --update-cache \
         libffi-dev \
         freetype-dev \
         lcms2-dev \
-        # PILLOW 
+        # PILLOW
         jpeg-dev \
         zlib-dev \
         # pylibmc
@@ -41,7 +41,7 @@ RUN apk add --update-cache \
         # opencv
         make \
         cmake \
-        clang \ 
+        clang \
         clang-dev \
         ninja \
         # tesseract
@@ -56,13 +56,9 @@ ADD depends /depends
 RUN /usr/sbin/adduser -D pillow && \
     pip3 install -I virtualenv && virtualenv /vpy3 && \
     /vpy3/bin/pip install --upgrade pip && \
-    /vpy3/bin/pip install pipenv && \
+    /vpy3/bin/pip install Pillow && \
     /vpy3/bin/pip install pytest pytest-cov && \
     chown -R pillow:pillow /vpy3
-
-RUN echo "torch"
-RUN /vpy3/bin/pipenv install
-RUN echo "torch2"
 
 USER pillow
 CMD ["depends/test.sh"]
