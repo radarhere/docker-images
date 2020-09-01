@@ -62,10 +62,10 @@ RUN /usr/sbin/adduser -D pillow && \
     chown -R pillow:pillow /vpy3
 
 RUN echo "torch"
-RUN ls
-RUN echo "torch1"
 RUN /vpy3/bin/pipenv install
 RUN echo "torch2"
+RUN cat Pipfile.lock
+RUN echo "torch3"
 
 USER pillow
 CMD ["depends/test.sh"]
