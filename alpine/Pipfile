@@ -1,4 +1,4 @@
-[source]]
+[[source]]
 url = "https://repository.walmart.com/repository/pypi-proxy/simple/"
 verify_ssl = true
 name = "pypi"
