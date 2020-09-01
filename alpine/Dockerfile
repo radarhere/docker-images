@@ -24,7 +24,7 @@ RUN apk add --update-cache \
         libffi-dev \
         freetype-dev \
         lcms2-dev \
-        # PILLOW 
+        # PILLOW
         jpeg-dev \
         zlib-dev \
         # pylibmc
@@ -41,7 +41,7 @@ RUN apk add --update-cache \
         # opencv
         make \
         cmake \
-        clang \ 
+        clang \
         clang-dev \
         ninja \
         # tesseract
@@ -61,6 +61,8 @@ RUN /usr/sbin/adduser -D pillow && \
     chown -R pillow:pillow /vpy3
 
 RUN echo "torch"
+RUN ls
+RUN echo "torch1"
 RUN /vpy3/bin/pipenv install
 RUN echo "torch2"
 
