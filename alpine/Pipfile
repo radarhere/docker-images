@@ -26,7 +26,6 @@ django-mock-queries = "*"
 cython = "*"
 tesserocr = "*"
 pytesseract = "*"
-opencv-contrib-python = "*"
 
 [dev-packages]
 pylint = "*"
