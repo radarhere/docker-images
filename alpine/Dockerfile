@@ -52,6 +52,7 @@ RUN apk add --update-cache \
         py3-pip
 
 ADD depends /depends
+ADD Pipfile /Pipfile
 
 RUN /usr/sbin/adduser -D pillow && \
     pip3 install -I virtualenv && virtualenv /vpy3 && \
