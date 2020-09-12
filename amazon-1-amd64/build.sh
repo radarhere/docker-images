@@ -26,7 +26,6 @@
 # Why not build Pillow directly with a virtualenv based on instrumented CPython?
 # Because the virtualenv will inherit CC and CFLAGS of the instrumented CPython, and that will fail.
 
-cd $SRC/
 tar zxf v3.6.12.tar.gz
 cd cpython-3.6.12/
 
