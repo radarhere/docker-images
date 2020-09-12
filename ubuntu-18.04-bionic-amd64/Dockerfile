@@ -34,7 +34,6 @@ RUN useradd pillow && \
     mkdir /home/pillow && \
     chown pillow:pillow /home/pillow
 
-ENV DISPLAY :0
 RUN wget https://github.com/python/cpython/archive/v3.6.12.tar.gz
 COPY ./build.sh build.sh
 RUN chmod a+x ./build.sh
