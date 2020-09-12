@@ -21,8 +21,8 @@ run yum install -y \
     which \
     xorg-x11-server-Xvfb \
     xorg-x11-xauth \
-    tk \
-    zlib-devel
+    zlib-devel \
+    openssl-devel
 
 RUN useradd --uid 1000 pillow
 
