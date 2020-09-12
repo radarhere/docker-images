@@ -21,10 +21,13 @@ run yum install -y \
     which \
     xorg-x11-server-Xvfb \
     xorg-x11-xauth \
-    tk-devel \
+    tk-dev \
     zlib-devel
 
 RUN useradd --uid 1000 pillow
+
+RUN wget https://github.com/python/cpython/archive/v3.6.12.tar.gz
+COPY ./build.sh build.sh
 
 RUN bash -c "/usr/bin/virtualenv-3.6 -p python3.6 --system-site-packages /vpy3 && \
     /vpy3/bin/pip install --upgrade pip && \
