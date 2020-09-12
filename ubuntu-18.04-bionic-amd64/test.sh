@@ -2,5 +2,6 @@
 source /vpy3/bin/activate
 cd /Pillow
 make clean
-make install-coverage
-/usr/bin/xvfb-run -a pytest -vx --cov PIL --cov-report term Tests
+python3 -m pip install numpy
+python3 setup.py install
+python3 -c "import numpy as np;from PIL import Image;from PIL import ImageTk;import tkinter;root = tkinter.Tk();example_image_array = np.full((100,100), 123, dtype=np.uint8);example_image = Image.fromarray(example_image_array);example_image_tk = ImageTk.PhotoImage(image=example_image)"

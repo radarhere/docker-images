@@ -7,8 +7,8 @@ services:
 matrix:
   fast_finish: true
   include:
-    - name: "amazon-1-amd64 stable"
-      env: DOCKER="amazon-1-amd64"
+    - name: "ubuntu-18.04-bionic-amd64 stable"
+      env: DOCKER="ubuntu-18.04-bionic-amd64"
 
 install:
 - sudo apt-get update && sudo apt-get install -qyy debootstrap
