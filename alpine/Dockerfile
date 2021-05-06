@@ -5,46 +5,53 @@
 # Freetype has different metrics so tests are failing.
 # sudo and bash are required for the webp build script.
 
-FROM alpine
+FROM python:3.8.3-alpine3.11
 
-RUN apk --no-cache add \
-    build-base \
-    python3 \
-    python3-dev \
-    # wget dependency
-    openssl \
-    # dev dependencies
-    bash \
-    git \
-    py3-pip \
-    sudo \
-    # Pillow dependencies
-    freetype-dev \
-    fribidi-dev \
-    harfbuzz-dev \
-    jpeg-dev \
-    lcms2-dev \
-    openjpeg-dev \
-    tcl-dev \
-    tiff-dev \
-    tk-dev \
-    zlib-dev
+RUN apk add --update-cache \
+        pcre-dev \
+        libc-dev \
+        linux-headers \
+        python3-dev \
+        nginx \
+        curl \
+        bash \
+        gcc \
+        g++ \
+        uwsgi-python3 \
+        # psycopg
+        postgresql-dev \
+        musl-dev \
+        libffi-dev \
+        freetype-dev \
+        lcms2-dev \
+        # PILLOW
+        jpeg-dev \
+        zlib-dev \
+        # pylibmc
+        libmemcached-dev \
+        openjpeg-dev \
+        jpeg \
+        libjpeg \
+        openjpeg \
+        tiff-dev \
+        tk-dev \
+        tcl-dev \
+        harfbuzz-dev \
+        fribidi-dev \
+        # opencv
+        make \
+        cmake \
+        clang \
+        clang-dev \
+        ninja \
+        # tesseract
+        leptonica-dev \
+        tesseract-ocr \
+        tesseract-ocr-dev \
+        openssh-server \
+        py3-pip
 
-ADD depends /depends
-RUN cd /depends \
-    && ./install_webp.sh \
-    && ./install_imagequant.sh \
-    && ./install_raqm.sh
-
-RUN /usr/sbin/adduser -D pillow \
-    && pip3 install --no-cache-dir -I virtualenv \
-    && virtualenv /vpy3 \
-    && /vpy3/bin/pip install --no-cache-dir --upgrade pip \
-    && /vpy3/bin/pip install --no-cache-dir olefile pytest pytest-cov pytest-timeout \
-    && /vpy3/bin/pip install --no-cache-dir numpy --only-binary=:all: || true \
-    && chown -R pillow:pillow /vpy3
-
-USER pillow
-CMD ["depends/test.sh"]
-
-#docker run -v $GITHUB_WORKSPACE:/Pillow pythonpillow/alpine
+RUN pip3 install -I virtualenv && virtualenv /vpy3 && \
+    /vpy3/bin/pip install --upgrade pip && \
+    /vpy3/bin/pip install pillow && \
+    /vpy3/bin/python -c 'from PIL import Image;print(Image.__version__)'

@@ -13,30 +13,7 @@ jobs:
         target:
           - "latest"
         image:
-          # Run slower jobs first to give them a headstart and reduce waiting time
-          - "ubuntu-20.04-focal-arm64v8"
-          - "ubuntu-20.04-focal-ppc64le"
-          - "ubuntu-20.04-focal-s390x"
-          # Then run the remainder
           - "alpine"
-          - "amazon-2-amd64"
-          - "arch"
-          - "centos-7-amd64"
-          - "centos-8-amd64"
-          - "debian-10-buster-x86"
-          - "fedora-33-amd64"
-          - "fedora-34-amd64"
-          - "manylinux1-wheel-build"
-          - "ubuntu-18.04-bionic-amd64"
-          - "ubuntu-20.04-focal-amd64"
-          - "ubuntu-20.04-focal-amd64-valgrind"
-        include:
-          - image: "ubuntu-20.04-focal-arm64v8"
-            qemu-arch: "aarch64"
-          - image: "ubuntu-20.04-focal-ppc64le"
-            qemu-arch: "ppc64le"
-          - image: "ubuntu-20.04-focal-s390x"
-            qemu-arch: "s390x"
 
     steps:
       - uses: actions/checkout@v2
