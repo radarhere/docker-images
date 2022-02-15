@@ -11,7 +11,7 @@ build:
 
 .PHONY: update
 update:
-	docker pull gentoo/stage3
+	docker pull gentoo/stage3:desktop
 
 .PHONY: test
 test:
