@@ -7,11 +7,13 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 
 .PHONY: build
 build:
+	cp -r ../Pillow/depends .
+	cp test.sh depends
 	docker build -t $(IMAGENAME):$(BRANCH) .
 
 .PHONY: update
 update:
-	docker pull gentoo/stage3:desktop
+	./update.sh
 
 .PHONY: test
 test:
@@ -28,4 +30,3 @@ clean:
 .PHONY: shell
 shell:
 	docker run --rm -it -v $(ROOT):/Pillow $(IMAGENAME):$(BRANCH) /bin/bash
-
