@@ -25,6 +25,13 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN git clone https://github.com/mozilla/mozjpeg.git
+RUN cd mozjpeg \
+    && mkdir build \
+    && cd build \
+    && sudo cmake -G"Unix Makefiles" ../ \
+    && sudo make install
+
 RUN useradd pillow \
     && addgroup pillow sudo \
     && mkdir /home/pillow \
