@@ -35,6 +35,9 @@ RUN cd mozjpeg \
 
 RUN echo "torch ls"
 RUN ls -la /opt/mozjpeg/lib64/
+RUN export LD_LIBRARY_PATH=/opt/mozjpeg/lib64
+RUN cp /opt/mozjpeg/lib64/libjpeg.so.62 .
+RUN cp /opt/mozjpeg/lib64/libjpeg.so.62 /usr/local/lib
 
 RUN useradd pillow \
     && addgroup pillow sudo \
