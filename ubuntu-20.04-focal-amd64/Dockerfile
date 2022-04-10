@@ -22,6 +22,7 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     tk8.6-dev \
     virtualenv \
     wget \
+    xvfb \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
@@ -31,6 +32,9 @@ RUN cd mozjpeg \
     && cd build \
     && sudo cmake -G"Unix Makefiles" ../ \
     && sudo make install
+
+RUN echo "torch ls"
+RUN ls -la /opt/mozjpeg/lib64/
 
 RUN useradd pillow \
     && addgroup pillow sudo \

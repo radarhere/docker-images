@@ -28,10 +28,6 @@ jobs:
       - name: Prepare build
         run: |
           sudo apt-get update && sudo apt-get install -qyy debootstrap
-          if [ "${{ matrix.target }}" = "latest" ]; then
-            git submodule update --remote Pillow
-            (cd Pillow && git checkout main)
-          fi
           sudo chown -R 1000 $(pwd)
 
       - name: Build image
