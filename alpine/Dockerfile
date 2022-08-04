@@ -9,6 +9,7 @@ FROM alpine
 
 RUN apk --no-cache add \
     build-base \
+    cargo \
     python3 \
     python3-dev \
     python3-tkinter \
