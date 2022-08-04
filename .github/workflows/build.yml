@@ -13,34 +13,7 @@ jobs:
         target:
           - "latest"
         image:
-          # Run slower jobs first to give them a headstart and reduce waiting time
-          - "ubuntu-22.04-jammy-arm64v8"
-          - "ubuntu-22.04-jammy-ppc64le"
-          - "ubuntu-22.04-jammy-s390x"
-          # Then run the remainder
           - "alpine"
-          - "amazon-2-amd64"
-          - "arch"
-          - "centos-7-amd64"
-          - "centos-stream-8-amd64"
-          - "centos-stream-9-amd64"
-          - "debian-10-buster-x86"
-          - "debian-11-bullseye-x86"
-          - "fedora-35-amd64"
-          - "fedora-36-amd64"
-          - "gentoo"
-          - "manylinux2014-wheel-build"
-          - "ubuntu-18.04-bionic-amd64"
-          - "ubuntu-20.04-focal-amd64"
-          - "ubuntu-22.04-jammy-amd64"
-          - "ubuntu-22.04-jammy-amd64-valgrind"
-        include:
-          - image: "ubuntu-22.04-jammy-arm64v8"
-            qemu-arch: "aarch64"
-          - image: "ubuntu-22.04-jammy-ppc64le"
-            qemu-arch: "ppc64le"
-          - image: "ubuntu-22.04-jammy-s390x"
-            qemu-arch: "s390x"
 
     steps:
       - uses: actions/checkout@v3

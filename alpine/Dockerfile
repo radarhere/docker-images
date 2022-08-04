@@ -26,7 +26,6 @@ RUN apk --no-cache add \
     harfbuzz-dev \
     jpeg-dev \
     lcms2-dev \
-    libimagequant-dev \
     openjpeg-dev \
     tcl-dev \
     tiff-dev \
