@@ -15,6 +15,7 @@ RUN apk --no-cache add \
     python3-tkinter \
     # wget dependency
     openssl \
+    openssl-dev \
     # dev dependencies
     bash \
     git \
