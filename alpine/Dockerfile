@@ -37,8 +37,9 @@ RUN apk --no-cache add \
 ADD depends /depends
 RUN cd /depends \
     && ./install_webp.sh \
-    && ./install_imagequant.sh \
     && ./install_raqm.sh
+
+RUN cd /depends && ./download-and-extract.sh libimagequant-4.0.1 https://raw.githubusercontent.com/python-pillow/pillow-depends/main/libimagequant-4.0.1.tar.gz && cd libimagequant-4.0.1/imagequant-sys && cargo install cargo-c && cargo cinstall --prefix=/usr --destdir=.
 
 RUN /usr/sbin/adduser -D pillow \
     && pip3 install --no-cache-dir -I virtualenv \
