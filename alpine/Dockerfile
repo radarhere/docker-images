@@ -39,7 +39,7 @@ RUN cd /depends \
     && ./install_webp.sh \
     && ./install_raqm.sh
 
-RUN cd /depends && ./download-and-extract.sh libimagequant-4.0.1 https://raw.githubusercontent.com/python-pillow/pillow-depends/main/libimagequant-4.0.1.tar.gz && cd libimagequant-4.0.1/imagequant-sys && cargo install cargo-c && cargo cinstall --prefix=/usr --destdir=. && sudo cp usr/lib/libimagequant.so* /usr/lib/
+RUN cd /depends && ./download-and-extract.sh libimagequant-4.0.1 https://raw.githubusercontent.com/python-pillow/pillow-depends/main/libimagequant-4.0.1.tar.gz && cd libimagequant-4.0.1/imagequant-sys && cargo install cargo-c && cargo cinstall --prefix=/usr --destdir=. && find / -iname libimagequant.so* && sudo cp usr/lib/libimagequant.so* /usr/lib/
 
 RUN /usr/sbin/adduser -D pillow \
     && pip3 install --no-cache-dir -I virtualenv \
