@@ -9,6 +9,7 @@ TARGETS = \
 	debian-11-bullseye-x86 \
 	fedora-36-amd64 \
 	fedora-37-amd64 \
+	fuzz \
 	gentoo \
 	manylinux2014-wheel-build \
 	ubuntu-18.04-bionic-amd64 \

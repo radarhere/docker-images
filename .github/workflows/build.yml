@@ -3,10 +3,6 @@ name: Docker images
 
 on: [push, pull_request, workflow_dispatch]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: ${{ matrix.target }} + ${{ matrix.image }}
@@ -17,44 +13,12 @@ jobs:
         target:
           - "latest"
         image:
-          # Run slower jobs first to give them a headstart and reduce waiting time
-          - "ubuntu-22.04-jammy-arm64v8"
-          - "ubuntu-22.04-jammy-ppc64le"
-          - "ubuntu-22.04-jammy-s390x"
-          # Then run the remainder
-          - "alpine"
-          - "amazon-2-amd64"
-          - "arch"
-          - "centos-7-amd64"
-          - "centos-stream-8-amd64"
-          - "centos-stream-9-amd64"
-          - "debian-10-buster-x86"
-          - "debian-11-bullseye-x86"
-          - "fedora-36-amd64"
-          - "fedora-37-amd64"
-          - "gentoo"
-          - "manylinux2014-wheel-build"
-          - "ubuntu-18.04-bionic-amd64"
-          - "ubuntu-20.04-focal-amd64"
-          - "ubuntu-22.04-jammy-amd64"
-          - "ubuntu-22.04-jammy-amd64-valgrind"
-        include:
-          - image: "ubuntu-22.04-jammy-arm64v8"
-            qemu-arch: "aarch64"
-          - image: "ubuntu-22.04-jammy-ppc64le"
-            qemu-arch: "ppc64le"
-          - image: "ubuntu-22.04-jammy-s390x"
-            qemu-arch: "s390x"
+          - "fuzz"
 
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
-
-      - name: Set up QEMU
-        if: "matrix.qemu-arch"
-        run: |
-          docker run --rm --privileged aptman/qus -s -- -p ${{ matrix.qemu-arch }}
 
       - name: Prepare build
         run: |
@@ -68,7 +32,7 @@ jobs:
       - name: Build image
         id: build
         run: |
-          cd "${{ matrix.image }}" && sudo chmod a+w . && make update
+          cd "${{ matrix.image }}" && sudo chmod a+w .
           if [[ -n "$DOCKER_USERNAME" ]]; then
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin && echo "::set-output name=logged_in::true"
           fi
@@ -76,31 +40,3 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Test image
-        run: |
-          cd "${{ matrix.image }}"
-          make test BRANCH=main
-
-      - name: Log image size
-        run: |
-          docker images
-
-      - name: Push image
-        if: "steps.build.outputs.logged_in == 'true'
-                           && github.event_name == 'push'
-                           && github.ref == 'refs/heads/main'
-                           && matrix.target == 'latest'"
-        run: make push-${{ matrix.image }} BRANCH=main
-
-      - name: Post build
-        if: always()
-        run: sudo chown -R $(id -u) $(pwd)
-
-  success:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Build successful
-    steps:
-      - name: Success
-        run: echo Build Successful
