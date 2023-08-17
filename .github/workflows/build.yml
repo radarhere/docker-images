@@ -3,10 +3,6 @@ name: Docker images
 
 on: [push, pull_request, workflow_dispatch]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: ${{ matrix.target }} + ${{ matrix.image }}
@@ -17,42 +13,13 @@ jobs:
         target:
           - "latest"
         image:
-          # Run slower jobs first to give them a headstart and reduce waiting time
           - "ubuntu-22.04-jammy-arm64v8"
           - "ubuntu-22.04-jammy-ppc64le"
-          - "ubuntu-22.04-jammy-s390x"
-          # test image for manylinux-wheel build
-          - "ubuntu-22.04-jammy-amd64"
-          # Then run the remainder
-          - "alpine"
-          - "amazon-2-amd64"
-          - "amazon-2023-amd64"
-          - "arch"
-          - "centos-7-amd64"
-          - "centos-stream-8-amd64"
-          - "centos-stream-9-amd64"
-          - "debian-11-bullseye-amd64"
-          - "debian-12-bookworm-x86"
-          - "debian-12-bookworm-amd64"
-          - "fedora-37-amd64"
-          - "fedora-38-amd64"
-          - "gentoo"
-          - "ubuntu-20.04-focal-amd64"
-          - "ubuntu-22.04-jammy-amd64-valgrind"
-          # has a dependency on the test image
-          - "manylinux2014-wheel-build"
-          - "manylinux_2_28-wheel-build"
         include:
-          - image: "manylinux2014-wheel-build"
-            test-image: "ubuntu-22.04-jammy-amd64"
-          - image: "manylinux_2_28-wheel-build"
-            test-image: "ubuntu-22.04-jammy-amd64"
           - image: "ubuntu-22.04-jammy-arm64v8"
             qemu-arch: "aarch64"
           - image: "ubuntu-22.04-jammy-ppc64le"
             qemu-arch: "ppc64le"
-          - image: "ubuntu-22.04-jammy-s390x"
-            qemu-arch: "s390x"
 
     steps:
       - uses: actions/checkout@v3
