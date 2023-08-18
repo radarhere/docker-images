@@ -1,7 +1,8 @@
-FROM ppc64le/ubuntu:jammy
+FROM ppc64le/ubuntu:lunar
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     cargo \
+    cargo-c\
     cmake \
     ghostscript \
     git \
@@ -32,11 +33,10 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     && rm -rf /var/lib/apt/lists/*
 
 RUN useradd pillow \
-    && addgroup pillow sudo \
     && mkdir /home/pillow \
     && chown pillow:pillow /home/pillow
 
-RUN virtualenv -p /usr/bin/python3.10 --system-site-packages /vpy3 \
+RUN virtualenv -p /usr/bin/python3.11 --system-site-packages /vpy3 \
     && /vpy3/bin/pip install --no-cache-dir --upgrade pip \
     && /vpy3/bin/pip install --no-cache-dir cffi olefile pytest pytest-cov pytest-timeout \
     && chown -R pillow:pillow /vpy3
@@ -46,7 +46,6 @@ RUN cd /depends \
     && ./download-and-extract.sh libimagequant-4.2.0 https://raw.githubusercontent.com/python-pillow/pillow-depends/main/libimagequant-4.2.0.tar.gz \
     && cd libimagequant-4.2.0/imagequant-sys \
     && echo "torch1" \
-    && cargo install cargo-c \
     && echo "torch2" \
     && cargo cinstall --prefix=/usr --destdir=. \
     && sudo cp usr/lib/libimagequant.so* /usr/lib/ \
