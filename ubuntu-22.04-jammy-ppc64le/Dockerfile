@@ -43,7 +43,7 @@ RUN virtualenv -p /usr/bin/python3.10 --system-site-packages /vpy3 \
 
 ADD depends /depends
 RUN cd /depends \
-    && ./install_imagequant.sh \
+    && rm -rf ~/.cargo/registry/index && ./install_imagequant.sh \
     && ./install_raqm.sh
 
 USER pillow
