@@ -44,14 +44,14 @@ RUN virtualenv -p /usr/bin/python3.10 --system-site-packages /vpy3 \
 ADD depends /depends
 RUN cd /depends \
     && ./download-and-extract.sh libimagequant-4.2.0 https://raw.githubusercontent.com/python-pillow/pillow-depends/main/libimagequant-4.2.0.tar.gz \
-    && pushd libimagequant-4.2.0/imagequant-sys \
+    && cd libimagequant-4.2.0/imagequant-sys \
     && echo "torch1" \
     && cargo install cargo-c \
     && echo "torch2" \
     && cargo cinstall --prefix=/usr --destdir=. \
     && sudo cp usr/lib/libimagequant.so* /usr/lib/ \
     && sudo cp usr/include/libimagequant.h /usr/include/ \
-    && popd \
+    && cd ../.. \
     && ./install_raqm.sh
 
 USER pillow
