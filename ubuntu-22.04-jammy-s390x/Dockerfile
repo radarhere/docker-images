@@ -45,7 +45,8 @@ RUN cd /depends \
     && cd libimagequant-4.2.0/imagequant-sys \
     && echo "torch1" \
     && echo "torch2" \
-    && cargo cinstall --prefix=/usr --destdir=. \
+    && CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse cargo cinstall --prefix=/usr --destdir=. \
+    && echo "torch3" \
     && sudo cp usr/lib/libimagequant.so* /usr/lib/ \
     && sudo cp usr/include/libimagequant.h /usr/include/ \
     && cd ../.. \
