@@ -1,4 +1,4 @@
-FROM s390x/ubuntu:lunar
+FROM s390x/ubuntu:mantic
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     cargo \

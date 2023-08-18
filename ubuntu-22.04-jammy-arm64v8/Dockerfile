@@ -1,4 +1,4 @@
-FROM arm64v8/ubuntu:lunar
+FROM arm64v8/ubuntu:mantic
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     cargo \

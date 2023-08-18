@@ -1,4 +1,4 @@
-FROM ppc64le/ubuntu:lunar
+FROM ppc64le/ubuntu:mantic
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     cargo \
