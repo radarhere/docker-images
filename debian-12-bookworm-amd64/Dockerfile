@@ -44,7 +44,6 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     libjpeg62-turbo-dev \
     liblcms2-dev \
     libopenjp2-7-dev \
-    libtiff5-dev \
     libwebp-dev \
     libssl-dev \
     meson \
@@ -69,15 +68,12 @@ RUN useradd pillow \
     && mkdir /home/pillow \
     && chown pillow:pillow /home/pillow
 
+COPY Image00386.tiff .
+
 RUN virtualenv -p /usr/bin/python3.11 --system-site-packages /vpy3 \
     && /vpy3/bin/pip install --no-cache-dir --upgrade pip \
-    && /vpy3/bin/pip install --no-cache-dir cffi olefile pytest pytest-cov pytest-timeout \
-    && chown -R pillow:pillow /vpy3
+    && /vpy3/bin/pip install --no-cache-dir Pillow==9.5.0
 
-ADD depends /depends
-RUN cd /depends && ./install_imagequant.sh && ./install_raqm.sh
+RUN /vpy3/bin/python -c "from PIL import features;print('libtiff version', features.version_codec('libtiff'))"
+RUN /vpy3/bin/python -c "from PIL import Image;im = Image.open('Image00386.tiff');im.save('toto2.tiff', compression='tiff_deflate')"
 
-USER pillow
-CMD ["depends/test.sh"]
-
-#docker run -v $GITHUB_WORKSPACE:/Pillow pythonpillow/debian-12-bookworm-amd64
