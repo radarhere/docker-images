@@ -37,13 +37,13 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN useradd --uid 1001 pillow
 
-RUN wget https://www.python.org/ftp/python/3.9.16/Python-3.9.16.tgz \
-    && tar xzf Python-3.9.16.tgz \
-    && cd Python-3.9.16 \
+RUN wget https://www.python.org/ftp/python/3.9.19/Python-3.9.19.tgz \
+    && tar xzf Python-3.9.19.tgz \
+    && cd Python-3.9.19 \
     && ./configure \
     && make altinstall \
     && cd .. \
-    && rm -r Python-3.9.16 Python-3.9.16.tgz
+    && rm -r Python-3.9.19 Python-3.9.19.tgz
 
 RUN bash -c "python3.9 -m pip install virtualenv \
     && python3.9 -m virtualenv --system-site-packages /vpy3 \
