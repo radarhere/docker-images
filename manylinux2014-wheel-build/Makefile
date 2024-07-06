@@ -28,10 +28,12 @@ wheel:
 	_PYVER=311 $(MAKE) wheel
 312:
 	_PYVER=312 $(MAKE) wheel
+313:
+	_PYVER=313 $(MAKE) wheel
 
 .PHONY: test
-test: 312
-	docker run --rm -v $(ROOT):/Pillow -v `pwd`/out:/output $(TEST_IMAGE) sh -c "/vpy3/bin/pip install /output/*cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl && cd /Pillow && /vpy3/bin/python selftest.py && /usr/bin/xvfb-run -a /vpy3/bin/pytest -vx"
+test: 313
+	docker run --rm -v $(ROOT):/Pillow -v `pwd`/out:/output $(TEST_IMAGE) sh -c "/vpy3/bin/pip install /output/*cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl && cd /Pillow && /vpy3/bin/python selftest.py && /usr/bin/xvfb-run -a /vpy3/bin/pytest -vx"
 
 .PHONY: push
 push:
