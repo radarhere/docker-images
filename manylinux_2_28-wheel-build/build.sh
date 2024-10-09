@@ -19,7 +19,7 @@ rm -f /tmp/*.whl || true
 # Python version, as 39,310,311,312,313. Defaults to 313.
 # Matches the naming in /opt/python/
 PYVER=${1:-313}
-PYBIN=$(echo /opt/python/cp${PYVER}*/bin)
+PYBIN=$(echo /opt/python/cp313-cp313/bin)
 
 # We have to clean up the Pillow directories, otherwise we might get
 # cached builds that are not manylinux wheel compatible
@@ -27,6 +27,13 @@ cd /Pillow
 PATH=$PYBIN:$PATH make clean
 
 # Build and repair
+echo "torch"
+ls -la  /opt/python
+echo "torch2"
+ls -la $PYBIN
+echo "torch3"
+$PYBIN/pip --version
+echo "torch4"
 $PYBIN/pip --verbose wheel ${OPTS} -w /tmp /Pillow
 $PYBIN/pip install auditwheel
 $PYBIN/python3 -m auditwheel repair /tmp/pillow*whl -w /output
