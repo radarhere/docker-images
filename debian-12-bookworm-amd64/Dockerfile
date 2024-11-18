@@ -34,22 +34,12 @@ RUN echo '#!/bin/sh' > /usr/sbin/policy-rc.d \
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     cmake \
     curl \
-    ghostscript \
     git \
-    libfreetype6-dev \
-    libfribidi-dev \
-    libharfbuzz-dev \
     libjpeg-turbo-progs \
     libjpeg62-turbo-dev \
-    liblcms2-dev \
-    libopenjp2-7-dev \
     libtiff5-dev \
-    libwebp-dev \
     libssl-dev \
-    meson \
-    netpbm \
     python3-dev \
-    python3-numpy \
     python3-setuptools \
     python3-tk \
     sudo \
@@ -57,29 +47,16 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     tk8.6-dev \
     virtualenv \
     wget \
-    xvfb \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
-
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
-
-RUN useradd --uid 1001 pillow \
-    && mkdir /home/pillow \
-    && chown pillow:pillow /home/pillow
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
 RUN virtualenv -p /usr/bin/python3.11 --system-site-packages /vpy3 \
     && /vpy3/bin/pip install --upgrade pip \
-    && /vpy3/bin/pip install olefile pytest pytest-cov pytest-timeout \
-    && chown -R pillow:pillow /vpy3
+    && /vpy3/bin/pip install Pillow==11.0.0
 
-ADD depends /depends
-RUN cd /depends && ./install_imagequant.sh && ./install_raqm.sh
+COPY IMG_0282.CR2 ./IMG_0282.CR2
 
-USER pillow
-CMD ["depends/test.sh"]
-
-#docker run -v $GITHUB_WORKSPACE:/Pillow pythonpillow/debian-12-bookworm-amd64
+RUN /vpy3/bin/python -c "from PIL import Image;print(Image.__version__);im = Image.open('IMG_0282.CR2');im.save('out.jpg')"
