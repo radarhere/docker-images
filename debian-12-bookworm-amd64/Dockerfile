@@ -59,4 +59,4 @@ RUN virtualenv -p /usr/bin/python3.11 --system-site-packages /vpy3 \
 
 COPY IMG_0282.CR2 ./IMG_0282.CR2
 
-RUN /vpy3/bin/python -c "from PIL import Image;print(Image.__version__);im = Image.open('IMG_0282.CR2');im.save('out.jpg')"
+RUN /vpy3/bin/python -c "from PIL import Image;print(Image.__version__);im = Image.open(open('IMG_0282.CR2', 'rb', buffering=1048576));im.save('out.jpg')"
