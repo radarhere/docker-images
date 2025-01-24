@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-latest", "ubuntu-22.04", "ubuntu-24.04", "ubuntu-24.04-arm"]
         image:
           - "ubuntu-24.04-noble-ppc64le"
           - "ubuntu-24.04-noble-s390x"
