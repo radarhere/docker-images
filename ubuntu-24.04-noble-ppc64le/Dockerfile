@@ -1,4 +1,4 @@
-FROM ppc64le/ubuntu:noble
+FROM ppc64le/ubuntu:oracular
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     cmake \

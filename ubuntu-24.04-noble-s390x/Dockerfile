@@ -1,4 +1,4 @@
-FROM s390x/ubuntu:noble
+FROM s390x/ubuntu:oracular
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     cmake \
