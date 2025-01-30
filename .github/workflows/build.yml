@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-24.04-arm"]
+        os: ["ubuntu-latest"]
         image:
           - "ubuntu-24.04-noble-ppc64le"
           - "ubuntu-24.04-noble-s390x"
@@ -31,7 +31,7 @@ jobs:
       - name: Set up QEMU
         if: "matrix.qemu-arch"
         run: |
-          docker run --rm --privileged aptman/qus -s -- -p ${{ matrix.qemu-arch }}
+          docker run --rm tonistiigi/binfmt:master --privileged aptman/qus -s -- -p ${{ matrix.qemu-arch }}
 
       - name: Prepare build
         run: |
