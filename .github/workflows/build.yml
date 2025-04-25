@@ -3,10 +3,6 @@ name: Docker images
 
 on: [push, pull_request, workflow_dispatch]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: ${{ matrix.image }}
@@ -16,40 +12,12 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
         image:
-          # Run slower jobs first to give them a headstart and reduce waiting time
-          - "ubuntu-24.04-noble-ppc64le"
-          - "ubuntu-24.04-noble-s390x"
-          # test image for manylinux-wheel build
-          - "fedora-41-amd64"
-          # Then run the remainder
-          - "alpine"
-          - "amazon-2-amd64"
-          - "amazon-2023-amd64"
-          - "arch"
-          - "centos-stream-9-amd64"
-          - "centos-stream-10-amd64"
-          - "debian-12-bookworm-x86"
-          - "debian-12-bookworm-amd64"
-          - "fedora-42-amd64"
-          - "gentoo"
-          - "ubuntu-22.04-jammy-amd64"
           - "ubuntu-22.04-jammy-amd64-valgrind"
-          - "ubuntu-24.04-noble-amd64"
-          # has a dependency on the test image
-          - "manylinux2014-wheel-build"
-          - "manylinux_2_28-wheel-build"
+          - "ubuntu-24.04-noble-amd64-valgrind"
         include:
-          - image: "manylinux2014-wheel-build"
-            test-image: "fedora-41-amd64"
-          - image: "manylinux_2_28-wheel-build"
-            test-image: "fedora-41-amd64"
-          - image: "ubuntu-24.04-noble-ppc64le"
-            qemu-arch: "ppc64le"
-            docker-args: "--platform linux/ppc64le"
-          - image: "ubuntu-24.04-noble-s390x"
-            qemu-arch: "s390x"
-            docker-args: "--platform linux/s390x"
-          - image: "ubuntu-24.04-noble-arm64v8"
+          - image: "ubuntu-22.04-noble-arm64v8-valgrind"
+            os: "ubuntu-22.04-arm"
+          - image: "ubuntu-24.04-noble-arm64v8-valgrind"
             os: "ubuntu-24.04-arm"
 
     steps:
