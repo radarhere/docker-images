@@ -36,6 +36,7 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     curl \
     ghostscript \
     git \
+    libavif-dev \
     libfreetype6-dev \
     libfribidi-dev \
     libharfbuzz-dev \
@@ -78,7 +79,7 @@ RUN virtualenv -p /usr/bin/python3.11 --system-site-packages /vpy3 \
     && chown -R pillow:pillow /vpy3
 
 ADD depends /depends
-RUN cd /depends && ./install_imagequant.sh && ./install_libavif.sh && ./install_raqm.sh
+RUN cd /depends && ./install_imagequant.sh && ./install_raqm.sh
 
 USER pillow
 CMD ["depends/test.sh"]
