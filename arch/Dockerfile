@@ -14,7 +14,6 @@ RUN pacman -Sy --noconfirm \
             extra/libjpeg-turbo \
             extra/tk \
             gcc \
-            ghostscript \
             git \
             make \
             mesa-libgl \
