@@ -3,6 +3,8 @@
 
 FROM greyltc/archlinux
 
+ADD pacman.conf /etc/pacman.conf
+
 RUN pacman -Syu --noconfirm \
             wget \
     && find /var/cache/pacman/ -type f -delete
@@ -22,7 +24,7 @@ RUN pacman -Sy --noconfirm \
             extra/openjpeg2 \
             extra/tk \
             gcc \
-            ghostscript \
+            extra-testing/ghostscript \
             git \
             make \
             mesa-libgl \
