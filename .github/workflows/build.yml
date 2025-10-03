@@ -3,10 +3,6 @@ name: Docker images
 
 on: [push, pull_request, workflow_dispatch]
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: ${{ matrix.image }}
@@ -69,12 +65,6 @@ jobs:
       - name: Prepare build
         run: |
           sudo apt-get update && sudo apt-get install -qyy debootstrap
-          if [[ -n "$matrix.test-image" ]]; then
-            git submodule update --remote --init --recursive Pillow
-          else
-            git submodule update --remote Pillow
-          fi
-          (cd Pillow && git checkout main)
           sudo chown -R 1001 $(pwd)
 
       - name: Test Image Build
