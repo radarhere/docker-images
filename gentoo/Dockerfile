@@ -21,25 +21,13 @@ RUN emerge --quiet -uDU @world
 # We deliberately set this quite late on to avoid rebuilding e.g. mesa.
 RUN echo 'VIDEO_CARDS="fbdev dummy"' | cat >> /etc/portage/make.conf
 
-RUN emerge --quiet sudo dev-python/virtualenv dev-util/cargo-c dev-build/meson x11-misc/xvfb-run
-
-# Install dependencies
-RUN USE="jpeg jpeg2k lcms tiff truetype webp xcb zlib" emerge --quiet --onlydeps dev-python/pillow
-RUN emerge --quiet app-text/ghostscript-gpl dev-python/numpy dev-vcs/git
+RUN emerge --quiet sudo dev-util/cargo-c dev-build/meson x11-misc/xvfb-run dev-vcs/git
 
 RUN useradd --uid 1001 pillow \
     && chown pillow:pillow /home/pillow
 
-ARG PIP_DISABLE_PIP_VERSION_CHECK=1
-ARG PIP_NO_CACHE_DIR=1
-
-RUN virtualenv --system-site-packages /vpy3 \
-    && /vpy3/bin/pip install --upgrade pip \
-    && /vpy3/bin/pip install pytest-cov pytest-timeout \
-    && chown -R pillow:pillow /vpy3
-
 ADD depends /depends
-RUN cd /depends && ./install_imagequant.sh && ./install_libavif.sh && ./install_raqm.sh && ldconfig
+RUN cd /depends && ./install_libavif.sh && ldconfig
 
 USER pillow
 CMD ["depends/test.sh"]
