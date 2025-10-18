@@ -5,7 +5,7 @@ FROM greyltc/archlinux
 
 RUN pacman -Sy --noconfirm --overwrite "*libedit*,*readline.h,*histedit.h" libedit
 
-RUN pacman -Sy --noconfirm gcc make openssl expat swig
+RUN pacman -Sy --noconfirm gcc make openssl expat swig clang bison pcre2 ninja
 RUN pacman -Sy --noconfirm python-pillow python-pip python-setuptools
 
 ADD test.jp2 /test.jp2
