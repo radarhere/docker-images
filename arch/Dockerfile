@@ -5,7 +5,8 @@ FROM greyltc/archlinux
 
 RUN pacman -Sy --noconfirm --overwrite "*libedit*,*readline.h,*histedit.h" libedit
 
-RUN pacman -Sy --noconfirm python-pillow python-pymupdf
+RUN pacman -Sy --noconfirm python-pip python-pillow
 
 ADD test.jp2 /test.jp2
-RUN python3 -c "from PIL import Image;image1 = Image.open('test.jp2');image1.save('out.png')"
+RUN python3 -m pip install pymupdf
+RUN python3 -c "import pymupdf;from PIL import Image;image1 = Image.open('test.jp2');image1.save('out.png')"
