@@ -8,4 +8,4 @@ RUN pacman -Sy --noconfirm --overwrite "*libedit*,*readline.h,*histedit.h" libed
 RUN pacman -Sy --noconfirm python-pillow python-pymupdf
 
 ADD test.jp2 /test.jp2
-RUN python3 -c "import pymupdf;from PIL import Image;image1 = Image.open('test.jp2');image1.save('out.png')"
+RUN python3 -c "from PIL import Image;image1 = Image.open('test.jp2');image1.save('out.png')"
