@@ -6,7 +6,7 @@ FROM greyltc/archlinux
 RUN pacman -Sy --noconfirm --overwrite "*libedit*,*readline.h,*histedit.h" libedit
 
 RUN pacman -Sy --noconfirm gcc make openssl expat
-RUN pacman -Sy --noconfirm python-pillow python-pip
+RUN pacman -Sy --noconfirm python-pillow python-pip python-setuptools
 
 ADD test.jp2 /test.jp2
 RUN python3 -m pip install --break-system-packages --no-binary :all: pymupdf
