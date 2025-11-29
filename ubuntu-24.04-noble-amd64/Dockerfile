@@ -1,62 +1,32 @@
 FROM ubuntu:noble
 
 RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
+    build-essential \
     cmake \
-    ghostscript \
     git \
-    libavif-dev \
-    libegl-dev \
-    libfreetype6-dev \
-    libfribidi-dev \
-    libharfbuzz-dev \
-    libimagequant-dev \
-    libjpeg-turbo8-dev \
-    liblcms2-dev \
-    libopengl-dev \
-    libopenjp2-7-dev \
-    libssl-dev \
-    libtiff5-dev \
-    libwebp-dev \
-    libxcb-cursor0 \
-    libxcb-icccm4 \
-    libxcb-image0 \
-    libxcb-keysyms1 \
-    libxcb-randr0 \
-    libxcb-render-util0 \
-    libxcb-shape0 \
-    libxkbcommon-x11-0 \
-    meson \
-    netpbm \
-    python3-dev \
-    python3-numpy \
-    python3-setuptools \
-    python3-tk \
-    sudo \
-    tcl8.6-dev \
-    tk8.6-dev \
-    virtualenv \
     wget \
-    xvfb \
-    zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd pillow \
-    && mkdir /home/pillow \
-    && chown pillow:pillow /home/pillow
+RUN wget https://ixpeering.dl.sourceforge.net/project/lcms/lcms/2.17/lcms2-2.17.tar.gz \
+    && tar xzf lcms2-2.17.tar.gz \
+    && cd lcms2-2.17 \
+    && ./configure --prefix=/usr/local \
+    && make -j4 install
 
-ARG PIP_DISABLE_PIP_VERSION_CHECK=1
-ARG PIP_NO_CACHE_DIR=1
+RUN wget https://github.com/google/brotli/archive/v1.2.0.tar.gz \
+    && tar xzf v1.2.0.tar.gz \
+    && cd brotli-1.2.0 \
+    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_INSTALL_LIBDIR=/usr/local/lib -DCMAKE_INSTALL_NAME_DIR=/usr/local/lib . \
+    && make -j4 install
 
-RUN virtualenv -p /usr/bin/python3.12 --system-site-packages /vpy3 \
-    && /vpy3/bin/pip install --upgrade pip \
-    && /vpy3/bin/pip install olefile pyside6 pytest pytest-cov pytest-timeout \
-    && chown -R pillow:pillow /vpy3
+RUN wget https://github.com/google/highway/archive/1.3.0.tar.gz \
+    && tar xzf 1.3.0.tar.gz \
+    && cd highway-1.3.0 \
+    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_INSTALL_LIBDIR=/usr/local/lib -DCMAKE_INSTALL_NAME_DIR=/usr/local/lib . \
+    && make -j4 install
 
-ADD depends /depends
-RUN cd /depends \
-    && ./install_raqm.sh
-
-USER pillow
-CMD ["depends/test.sh"]
-
-#docker run -v $GITHUB_WORKSPACE:/Pillow pythonpillow/ubuntu-24.04-noble-amd64
+RUN wget https://github.com/libjxl/libjxl/archive/v0.11.1.tar.gz \
+    && tar xzf v0.11.1.tar.gz \
+    && cd libjxl-0.11.1 \
+    && cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_INSTALL_LIBDIR=/usr/local/lib -DCMAKE_INSTALL_NAME_DIR=/usr/local/lib -DJPEGXL_ENABLE_SJPEG=OFF -DJPEGXL_ENABLE_SKCMS=OFF -DBUILD_TESTING=OFF . \
+    && make -j4 install
