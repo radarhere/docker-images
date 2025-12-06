@@ -15,7 +15,7 @@ RUN wget https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.3.0.tar.gz
         -DCMAKE_INSTALL_PREFIX=/usr/local \
         -DCMAKE_INSTALL_LIBDIR=/usr/local/lib \
         -DCMAKE_INSTALL_NAME_DIR=/usr/local/lib \
-        -DBUILD_SHARED_LIBS=$build_shared \
+        -DBUILD_SHARED_LIBS=ON \
         -DAVIF_LIBSHARPYUV=LOCAL \
         -DAVIF_LIBYUV=LOCAL \
         -DAVIF_CODEC_AOM=LOCAL \
