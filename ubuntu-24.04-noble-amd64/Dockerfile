@@ -7,6 +7,24 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
+RUN wget https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.3.0.tar.gz \
+    && tar xzf v1.3.0.tar.gz \
+    && cd libavif-1.3.0 \
+    && cmake \
+        -DCMAKE_INSTALL_PREFIX=/usr/local \
+        -DCMAKE_INSTALL_LIBDIR=/usr/local/lib \
+        -DCMAKE_INSTALL_NAME_DIR=/usr/local/lib \
+        -DBUILD_SHARED_LIBS=$build_shared \
+        -DAVIF_LIBSHARPYUV=LOCAL \
+        -DAVIF_LIBYUV=LOCAL \
+        -DAVIF_CODEC_AOM=LOCAL \
+        -DAOM_TARGET_CPU=generic \
+        -DCONFIG_AV1_HIGHBITDEPTH=0 \
+        -DCMAKE_C_VISIBILITY_PRESET=hidden \
+        -DCMAKE_CXX_VISIBILITY_PRESET=hidden \
+        . \
+    && make -j4 install
+
 RUN wget https://ixpeering.dl.sourceforge.net/project/lcms/lcms/2.17/lcms2-2.17.tar.gz \
     && tar xzf lcms2-2.17.tar.gz \
     && cd lcms2-2.17 \
