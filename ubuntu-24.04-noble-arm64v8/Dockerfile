@@ -23,6 +23,7 @@ RUN wget https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.3.0.tar.gz
         -DCMAKE_C_VISIBILITY_PRESET=hidden \
         -DCMAKE_CXX_VISIBILITY_PRESET=hidden \
         -DCMAKE_BUILD_TYPE=MinSizeRel \
+        -DCMAKE_SHARED_LINKER_FLAGS_INIT="-Wl,--strip-all,-z,relro,-z,now" \
         . \
     && make -j4 install
 
