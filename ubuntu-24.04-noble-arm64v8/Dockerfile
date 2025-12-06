@@ -4,6 +4,7 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     build-essential \
     cmake \
     git \
+    nasm \
     wget \
     && rm -rf /var/lib/apt/lists/*
 

@@ -4,6 +4,7 @@ RUN apt-get -qq update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
     build-essential \
     cmake \
     git \
+    nasm \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
@@ -18,7 +19,6 @@ RUN wget https://github.com/AOMediaCodec/libavif/archive/refs/tags/v1.3.0.tar.gz
         -DAVIF_LIBSHARPYUV=LOCAL \
         -DAVIF_LIBYUV=LOCAL \
         -DAVIF_CODEC_AOM=LOCAL \
-        -DAOM_TARGET_CPU=generic \
         -DCONFIG_AV1_HIGHBITDEPTH=0 \
         -DCMAKE_C_VISIBILITY_PRESET=hidden \
         -DCMAKE_CXX_VISIBILITY_PRESET=hidden \
