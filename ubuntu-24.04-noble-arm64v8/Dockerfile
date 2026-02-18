@@ -17,9 +17,11 @@ RUN useradd pillow \
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
+ADD pillow-12.2.0.dev0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl /pillow-12.2.0.dev0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+
 RUN virtualenv -p /usr/bin/python3.12 --system-site-packages /vpy3 \
     && /vpy3/bin/pip install --upgrade pip \
-    && /vpy3/bin/pip install Pillow \
+    && /vpy3/bin/pip install pillow-12.2.0.dev0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl \
     && chown -R pillow:pillow /vpy3
 
 ADD depends /depends
