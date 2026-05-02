@@ -2,6 +2,8 @@ TARGETS = \
 	alpine \
 	amazon-2023-amd64 \
 	arch \
+	arch_riscv64 \
+	arch_riscfive \
 	centos-stream-9-amd64 \
 	centos-stream-10-amd64 \
 	debian-13-trixie-x86 \
