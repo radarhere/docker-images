@@ -34,7 +34,7 @@ RUN apk --no-cache add \
     tcl-dev \
     tiff-dev \
     tk-dev \
-    zlib-dev
+    zlib-ng-dev
 
 COPY depends /depends
 RUN cd /depends \
