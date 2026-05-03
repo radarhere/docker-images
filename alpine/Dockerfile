@@ -54,6 +54,9 @@ RUN /usr/sbin/adduser -D --uid 1001 pillow \
 RUN echo "torch find"
 RUN find / -name zlib.h
 
+RUN echo "torch cat"
+RUN cat /usr/include/zlib.h
+
 ENV FORCE_COLOR=1
 
 USER pillow
