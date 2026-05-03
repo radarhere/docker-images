@@ -51,6 +51,9 @@ RUN /usr/sbin/adduser -D --uid 1001 pillow \
     && /vpy3/bin/pip install numpy --only-binary=:all: || true \
     && chown -R pillow:pillow /vpy3
 
+RUN echo "torch find"
+RUN find / -name zlib.h
+
 ENV FORCE_COLOR=1
 
 USER pillow
