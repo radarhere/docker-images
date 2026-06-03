@@ -5,10 +5,6 @@ on: [push, pull_request, workflow_dispatch]
 
 permissions: {}
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   build:
     name: ${{ matrix.image }}
@@ -108,9 +104,6 @@ jobs:
           docker images
 
       - name: Push image
-        if: "steps.build.outputs.logged_in == 'true'
-                           && github.event_name == 'push'
-                           && github.ref == 'refs/heads/main'"
         run: make push-${{ matrix.image }} BRANCH=main
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -118,11 +111,3 @@ jobs:
       - name: Post build
         if: always()
         run: sudo chown -R "$(id -u)" "$(pwd)"
-
-  success:
-    needs: build
-    runs-on: ubuntu-latest
-    name: Build successful
-    steps:
-      - name: Success
-        run: echo Build Successful
