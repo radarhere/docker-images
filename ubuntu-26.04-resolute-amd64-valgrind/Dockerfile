@@ -17,6 +17,7 @@ RUN apt-get -qq update \
     libtiff5-dev \
     libwebp-dev \
     meson \
+    nasm \
     netpbm \
     python3.14-dbg \
     python3-dev \
