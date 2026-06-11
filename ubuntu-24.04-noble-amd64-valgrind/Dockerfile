@@ -6,6 +6,7 @@ RUN apt-get -qq update \
     g++ \
     ghostscript \
     git \
+    libavif-dev \
     libfreetype6-dev \
     libfribidi-dev \
     libharfbuzz-dev \
@@ -17,7 +18,6 @@ RUN apt-get -qq update \
     libtiff5-dev \
     libwebp-dev \
     meson \
-    nasm \
     netpbm \
     python3.12-dbg \
     python3-dev \
@@ -48,7 +48,6 @@ RUN virtualenv -p /usr/bin/python3.12-dbg --system-site-packages /vpy3 \
 
 COPY depends /depends
 RUN cd /depends \
-    && ./install_libavif.sh \
     && ./install_raqm.sh
 
 COPY python.supp /depends
