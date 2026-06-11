@@ -6,7 +6,6 @@ RUN apt-get -qq update \
     g++ \
     ghostscript \
     git \
-    libavif-dev \
     libfreetype6-dev \
     libfribidi-dev \
     libharfbuzz-dev \
@@ -48,6 +47,7 @@ RUN virtualenv -p /usr/bin/python3.14-dbg --system-site-packages /vpy3 \
 
 COPY depends /depends
 RUN cd /depends \
+    && ./install_libavif.sh \
     && ./install_raqm.sh
 
 COPY python.supp /depends
