@@ -1,4 +1,4 @@
-FROM ubuntu:noble
+FROM ubuntu:resolute
 
 RUN apt-get -qq update \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
@@ -19,7 +19,7 @@ RUN apt-get -qq update \
     libwebp-dev \
     meson \
     netpbm \
-    python3.12-dbg \
+    python3.14-dbg \
     python3-dev \
     python3-numpy \
     python3-setuptools \
@@ -34,14 +34,14 @@ RUN apt-get -qq update \
     valgrind \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN useradd --uid 1001 pillow \
+RUN useradd pillow \
     && mkdir /home/pillow \
     && chown pillow:pillow /home/pillow
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
 ARG PIP_NO_CACHE_DIR=1
 
-RUN virtualenv -p /usr/bin/python3.12-dbg --system-site-packages /vpy3 \
+RUN virtualenv -p /usr/bin/python3.14-dbg --system-site-packages /vpy3 \
     && /vpy3/bin/pip install --upgrade pip \
     && /vpy3/bin/pip install olefile pytest pytest-cov pytest-timeout pytest-valgrind \
     && chown -R pillow:pillow /vpy3
@@ -57,4 +57,4 @@ ENV FORCE_COLOR=1
 USER pillow
 CMD ["depends/test.sh"]
 
-#docker run -v $TRAVIS_BUILD_DIR:/Pillow pythonpillow/ubuntu-24.04-noble-amd64
+#docker run -v $GITHUB_WORKSPACE:/Pillow pythonpillow/ubuntu-26.04-resolute-amd64
