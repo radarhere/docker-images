@@ -16,7 +16,6 @@ RUN apt-get -qq update \
     libopenjp2-7-dev \
     libtiff5-dev \
     meson \
-    netpbm \
     python3-dev \
     python3-numpy \
     python3-setuptools \

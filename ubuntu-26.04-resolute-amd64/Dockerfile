@@ -28,7 +28,6 @@ RUN apt-get -qq update \
     libxcb-shape0 \
     libxkbcommon-x11-0 \
     meson \
-    netpbm \
     python3-dev \
     python3-numpy \
     python3-setuptools \

@@ -18,7 +18,6 @@ RUN apt-get -qq update \
     libtiff5-dev \
     libwebp-dev \
     meson \
-    netpbm \
     python3-dev \
     python3-numpy \
     python3-setuptools \
