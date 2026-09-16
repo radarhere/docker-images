@@ -18,7 +18,6 @@ RUN apt-get -qq update \
     libwebp-dev \
     meson \
     nasm \
-    netpbm \
     python3.12-dbg \
     python3-dev \
     python3-numpy \

@@ -51,7 +51,6 @@ RUN apt-get -qq update \
     libssl-dev \
     meson \
     nasm \
-    netpbm \
     python3-dev \
     python3-numpy \
     python3-setuptools \
