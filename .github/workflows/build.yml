@@ -36,7 +36,6 @@ jobs:
           else
             git submodule update --remote Pillow
           fi
-          cd Pillow && git checkout main
 
       - name: Test Image Build
         if: "matrix.test-image"
