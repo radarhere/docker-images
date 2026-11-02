@@ -25,6 +25,12 @@ PYBIN=$(echo /opt/python/cp${PYVER}-cp${PYVER}/bin)
 # cached builds that are not manylinux wheel compatible
 cd /Pillow
 PATH=$PYBIN:$PATH make clean
+echo "torch ls"
+ls -la
+echo "torch end"
+echo "torch ls src"
+ls -la src
+echo "torch end"
 
 # Build and repair
 $PYBIN/pip --verbose wheel ${OPTS} -w /tmp /Pillow

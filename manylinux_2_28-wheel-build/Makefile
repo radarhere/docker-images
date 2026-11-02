@@ -31,7 +31,7 @@ wheel:
 
 .PHONY: test
 test: 314
-	docker run --rm -v $(ROOT):/Pillow -v `pwd`/out:/output $(TEST_IMAGE) sh -c ". /vpy3/bin/activate && python3 -m pip install /output/*cp314-*manylinux_2_28_x86_64.whl && cd /Pillow && python3 selftest.py && python3 -m pip install --only-deps '.[tests]' && /usr/bin/xvfb-run -a make test-p"
+	docker run --rm -v $(ROOT):/Pillow -v `pwd`/out:/output $(TEST_IMAGE) sh -c ". /vpy3/bin/activate && python3 -m pip install /output/*cp314-*manylinux_2_28_x86_64.whl && cd /Pillow && echo 'torchstartmake' && ls -la src && python3 selftest.py && python3 -m pip install --only-deps '.[tests]' && /usr/bin/xvfb-run -a make test-p"
 
 .PHONY: push
 push:
