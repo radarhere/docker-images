@@ -1,5 +1,7 @@
 FROM ghcr.io/nascheme/cpython-tsan:3.14t
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN apt-get -qq update \
     && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
     cmake \
@@ -9,7 +11,6 @@ RUN apt-get -qq update \
     libfreetype6-dev \
     libfribidi-dev \
     libharfbuzz-dev \
-    libimagequant-dev \
     libjpeg-turbo8-dev \
     liblcms2-dev \
     libopengl-dev \
@@ -39,6 +40,9 @@ RUN apt-get -qq update \
     zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
 RUN useradd pillow \
     && mkdir /home/pillow \
     && chown pillow:pillow /home/pillow
@@ -53,6 +57,7 @@ RUN /work/.pyenv/shims/python3 -m venv /vpy3 \
 
 COPY depends /depends
 RUN cd /depends \
+    && ./install_imagequant.sh \
     && ./install_raqm.sh
 
 ENV FORCE_COLOR=1
